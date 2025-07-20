@@ -13,7 +13,7 @@ import {
 } from "@/components/ui/card";
 
 import { Alert, AlertDescription } from "@/components/ui/alert";
-import { Mail, User, Phone, Lock, Eye, EyeOff } from "lucide-react";
+import { Mail, User, Phone, Lock } from "lucide-react";
 import { Form, Formik } from "formik";
 import { loginSchema } from "../validations";
 import { RegisterFormValues } from "../auth.types";
@@ -68,6 +68,7 @@ export default function RegisterScreen() {
                 type="email"
                 icon={<Mail className="h-4 w-4 text-gray-400" />}
                 placeholder="tu@ejemplo.com"
+                required
               />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -76,12 +77,14 @@ export default function RegisterScreen() {
                   label="Nombre"
                   icon={<User className="h-4 w-4 text-gray-400" />}
                   placeholder="Juan"
+                  required
                 />
                 <FormikInput
                   name="firstLastName"
                   label="Primer Apellido"
                   icon={<User className="h-4 w-4 text-gray-400" />}
                   placeholder="Pérez"
+                  required
                 />
               </div>
 
@@ -90,6 +93,7 @@ export default function RegisterScreen() {
                 label="Segundo Apellido"
                 icon={<User className="h-4 w-4 text-gray-400" />}
                 placeholder="García"
+                required
               />
 
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -99,6 +103,7 @@ export default function RegisterScreen() {
                   type="tel"
                   icon={<Phone className="h-4 w-4 text-gray-400" />}
                   placeholder="+34 600 123 456"
+                  required
                 />
                 <FormikInput
                   name="landlinePhone"
@@ -117,6 +122,7 @@ export default function RegisterScreen() {
                   icon={<Lock className="h-4 w-4 text-gray-400" />}
                   toggleVisibility
                   placeholder="••••••••"
+                  required
                 />
                 <FormikInput
                   name="confirmPassword"
@@ -125,6 +131,7 @@ export default function RegisterScreen() {
                   icon={<Lock className="h-4 w-4 text-gray-400" />}
                   toggleVisibility
                   placeholder="••••••••"
+                  required
                 />
               </div>
             </CardContent>

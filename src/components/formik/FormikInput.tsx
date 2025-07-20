@@ -16,6 +16,7 @@ interface Props {
   icon?: ReactNode;
   toggleVisibility?: boolean;
   placeholder?: string;
+  required?: boolean;
 }
 
 export default function FormikInput({
@@ -25,6 +26,7 @@ export default function FormikInput({
   icon,
   toggleVisibility = false,
   placeholder,
+  required = false,
 }: Props) {
   const [field, meta] = useField(name);
   const [show, setShow] = useState(false);
@@ -33,7 +35,10 @@ export default function FormikInput({
 
   return (
     <div className="space-y-2">
-      <Label htmlFor={name}>{label}</Label>
+      <Label htmlFor={name}>
+        {label}
+        {required && <span className="text-red-500">*</span>}
+      </Label>
       <div className="relative">
         <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
           {icon && <span className="text-gray-400">{icon}</span>}
