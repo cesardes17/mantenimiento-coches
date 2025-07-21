@@ -22,6 +22,8 @@ export default function useRegister() {
       );
       if (!response.ok && response.error) {
         setError(response.error);
+        setIsLoading(false);
+        return;
       } else {
         if (response.data) {
           // si el registro es exitoso, guardamos su info en base de datos
@@ -40,17 +42,22 @@ export default function useRegister() {
           const res = await userService.createUser(userData);
           if (!res.ok && res.error) {
             setError(res.error);
+            setIsLoading(false);
           } else {
             // Registro exitoso
             console.log("Usuario registrado exitosamente:", userData);
 
             //redirigir a la pagina de inicio
             router.push("/home/");
+            setIsLoading(false);
+            setError(null);
           }
         }
       }
     } catch (error) {
       console.error("Registration error:", error);
+      setError("Error al registrar el usuario. Por favor, inténtalo de nuevo.");
+      setIsLoading(false);
     }
   };
 

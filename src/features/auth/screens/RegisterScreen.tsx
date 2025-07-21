@@ -20,14 +20,15 @@ import { RegisterFormValues } from "../auth.types";
 import FormikInput from "@/components/formik/FormikInput";
 import { useRouter } from "next/navigation";
 import useRegister from "../hooks/useRegister";
+import { ThemeToggle } from "@/components/ThemeToggle";
 
 const initialValues: RegisterFormValues = {
   email: "",
   firstName: "",
   firstLastName: "",
   secondLastName: "",
-  mobilePhone: "",
-  landlinePhone: "",
+  mobilePhone: 0,
+  landlinePhone: 0,
   password: "",
   confirmPassword: "",
 };
@@ -38,7 +39,10 @@ export default function RegisterScreen() {
   const { register, error, isLoading } = useRegister();
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
+    <div className="min-h-screen flex items-center justify-center">
+      <div className="absolute top-4 right-4">
+        <ThemeToggle />
+      </div>
       <Card className="w-full max-w-2xl">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">
@@ -141,14 +145,15 @@ export default function RegisterScreen() {
                 {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
               </Button>
               <div className="text-center text-sm text-gray-600">
-                ¿No tienes una cuenta?
+                ¿Tienes una cuenta?
                 <Button
                   variant="link"
                   className="px-0 text-sm"
                   type="button"
-                  onClick={() => router.push("/register")}
+                  onClick={() => router.push("/login")}
+                  style={{ marginLeft: "0.25rem" }}
                 >
-                  Regístrate aquí
+                  Inicia sesión aquí
                 </Button>
               </div>
             </CardFooter>
