@@ -1,7 +1,7 @@
 "use client";
 
 import { Button } from "@/components/ui/button";
-import { AuthService } from "@/lib/services/authService";
+import { AuthService } from "@/lib/services/core/authService";
 import { useRouter } from "next/navigation";
 
 export default function HomePage() {

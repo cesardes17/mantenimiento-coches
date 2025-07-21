@@ -16,13 +16,17 @@ const registerSchema = Yup.object({
 
   secondLastName: Yup.string(),
 
-  mobilePhone: Yup.string()
+  mobilePhone: Yup.number()
     .required("El teléfono móvil es obligatorio")
-    .matches(/^\+?[0-9\s]{9,16}$/, "Número de móvil inválido"),
+    .typeError("El teléfono móvil debe ser un número")
+    .min(100000000, "Número de móvil inválido")
+    .max(9999999999999999, "Número de móvil inválido"),
 
-  landlinePhone: Yup.string()
+  landlinePhone: Yup.number()
     .nullable()
-    .matches(/^(\+?[0-9\s]{9,16})?$/, "Número de teléfono fijo inválido"),
+    .typeError("El teléfono fijo debe ser un número")
+    .min(100000000, "Número de teléfono fijo inválido")
+    .max(9999999999999999, "Número de teléfono fijo inválido"),
 
   password: Yup.string()
     .min(6, "La contraseña debe tener al menos 6 caracteres")

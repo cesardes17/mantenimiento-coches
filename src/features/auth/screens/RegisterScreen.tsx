@@ -19,6 +19,7 @@ import { loginSchema } from "../validations";
 import { RegisterFormValues } from "../auth.types";
 import FormikInput from "@/components/formik/FormikInput";
 import { useRouter } from "next/navigation";
+import useRegister from "../hooks/useRegister";
 
 const initialValues: RegisterFormValues = {
   email: "",
@@ -33,8 +34,8 @@ const initialValues: RegisterFormValues = {
 
 export default function RegisterScreen() {
   const router = useRouter();
-  const error = ""; // Placeholder for error handling
-  const isLoading = false; // Placeholder for loading state
+
+  const { register, error, isLoading } = useRegister();
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 px-4">
@@ -52,7 +53,7 @@ export default function RegisterScreen() {
         <Formik
           initialValues={initialValues}
           validationSchema={loginSchema}
-          onSubmit={() => console.log("Form submitted")}
+          onSubmit={register}
         >
           <Form>
             <CardContent className="space-y-4 pb-0">

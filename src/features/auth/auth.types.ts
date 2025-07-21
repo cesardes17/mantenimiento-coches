@@ -8,8 +8,8 @@ type RegisterFormValues = {
   firstName: string;
   firstLastName: string;
   secondLastName: string;
-  mobilePhone: string;
-  landlinePhone: string;
+  mobilePhone: number;
+  landlinePhone: number;
   password: string;
   confirmPassword: string;
 };
