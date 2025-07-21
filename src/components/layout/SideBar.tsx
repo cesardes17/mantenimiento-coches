@@ -1,7 +1,9 @@
 "use client";
 
+import { AuthService } from "@/lib/services/core/authService";
 import { Home, Car, User, LogOut } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface SidebarProps {
   isOpen: boolean;
@@ -15,6 +17,7 @@ const navigationItems = [
 ];
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
+  const router = useRouter();
   return (
     <aside
       className={`fixed top-16 left-0 z-20 w-64 h-[calc(100vh-4rem)] bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
@@ -44,7 +47,13 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         <div className="px-4 py-6 border-t border-gray-200 dark:border-gray-700">
           {/* Logout button */}
           <button
-            onClick={onClose}
+            onClick={async () => {
+              // Handle logout logic here
+              const res = await AuthService.logout();
+              if (res.ok) {
+                router.push("/login");
+              }
+            }}
             className="flex items-center w-full px-4 py-3 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-colors duration-200 group"
           >
             <LogOut className="h-5 w-5 mr-3 text-gray-500 dark:text-gray-400 group-hover:text-red-600 dark:group-hover:text-red-400" />

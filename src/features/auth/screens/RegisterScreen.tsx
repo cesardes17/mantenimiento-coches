@@ -27,8 +27,8 @@ const initialValues: RegisterFormValues = {
   firstName: "",
   firstLastName: "",
   secondLastName: "",
-  mobilePhone: 0,
-  landlinePhone: 0,
+  mobilePhone: "",
+  landlinePhone: null,
   password: "",
   confirmPassword: "",
 };
@@ -39,14 +39,14 @@ export default function RegisterScreen() {
   const { register, error, isLoading } = useRegister();
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <>
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
-      <Card className="w-full max-w-2xl">
+      <Card className="w-full max-w-2xl bg-white dark:bg-gray-800">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">
-            Crear Cuenta
+            Crea Tu Cuenta
           </CardTitle>
 
           <CardDescription className="text-center">
@@ -105,7 +105,7 @@ export default function RegisterScreen() {
                 <FormikInput
                   name="mobilePhone"
                   label="Teléfono Móvil"
-                  type="tel"
+                  type="text"
                   icon={<Phone className="h-4 w-4 text-gray-400" />}
                   placeholder="+34 600 123 456"
                   required
@@ -113,9 +113,9 @@ export default function RegisterScreen() {
                 <FormikInput
                   name="landlinePhone"
                   label="Teléfono Fijo"
-                  type="tel"
+                  type="text"
                   icon={<Phone className="h-4 w-4 text-gray-400" />}
-                  placeholder="+34 91 123 4567"
+                  placeholder="+34 928 88 88 88"
                 />
               </div>
 
@@ -142,7 +142,7 @@ export default function RegisterScreen() {
             </CardContent>
             <CardFooter className="flex flex-col space-y-4 mt-4">
               <Button type="submit" className="w-full" disabled={isLoading}>
-                {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
+                {isLoading ? "Creando cuenta..." : "Crear Cuenta"}
               </Button>
               <div className="text-center text-sm text-gray-600">
                 ¿Tienes una cuenta?
@@ -160,6 +160,6 @@ export default function RegisterScreen() {
           </Form>
         </Formik>
       </Card>
-    </div>
+    </>
   );
 }

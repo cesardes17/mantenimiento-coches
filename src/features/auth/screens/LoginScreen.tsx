@@ -24,11 +24,11 @@ export default function LoginScreen() {
   const { login, isLoading, error } = useLogin();
 
   return (
-    <div className="min-h-screen flex items-center justify-center">
+    <>
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
-      <Card className="w-full max-w-md">
+      <Card className="w-full max-w-md bg-white dark:bg-gray-800">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">
             Iniciar sesión
@@ -55,7 +55,7 @@ export default function LoginScreen() {
                 label="Correo electrónico"
                 type="email"
                 icon={<Mail />}
-                placeholder="tu@correo.com"
+                placeholder="correo@ejemplo.com"
               />
               <FormikInput
                 name="password"
@@ -77,6 +77,7 @@ export default function LoginScreen() {
                   className="px-0 text-sm"
                   type="button"
                   onClick={() => router.push("/register")}
+                  style={{ marginLeft: "0.25rem" }}
                 >
                   Regístrate aquí
                 </Button>
@@ -85,6 +86,6 @@ export default function LoginScreen() {
           </Form>
         </Formik>
       </Card>
-    </div>
+    </>
   );
 }

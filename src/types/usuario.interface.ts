@@ -1,12 +1,12 @@
 export interface Usuario {
+  uid: string; // UUID generado automáticamente
   email: string;
-  uid: string; // UUID
   nombre: string;
   apellido_p: string;
   apellido_m: string;
-  movil: number; // Puede ser string si se usa con input de texto
-  fijo: number;
-  rol: number; // ID de la tabla `roles`
+  movil: string; // Ahora es TEXT en la base de datos
+  fijo?: string | null; // Campo nullable en la base de datos
+  rol_global_id: number; // FK a roles.id
   activo: boolean;
-  fecha_registro: Date; // Usamos Date para representar la fecha
+  fecha_registro: Date; // Puedes usar string o Date según cómo la parses
 }

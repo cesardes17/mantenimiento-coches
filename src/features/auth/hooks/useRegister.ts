@@ -26,18 +26,17 @@ export default function useRegister() {
         return;
       } else {
         if (response.data) {
-          // si el registro es exitoso, guardamos su info en base de datos
           const userData: Usuario = {
             activo: true,
             email: values.email,
             nombre: values.firstName,
-            fijo: values.landlinePhone,
             uid: response.data.uid,
             apellido_p: values.firstLastName,
             apellido_m: values.secondLastName,
-            movil: values.mobilePhone,
             fecha_registro: new Date(),
-            rol: 2, // rol 2 correspondiente a usuario normal
+            rol_global_id: 1,
+            movil: values.mobilePhone,
+            fijo: values.landlinePhone,
           };
           const res = await userService.createUser(userData);
           if (!res.ok && res.error) {
