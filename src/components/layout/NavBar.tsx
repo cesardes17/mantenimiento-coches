@@ -1,6 +1,7 @@
 "use client";
 
 import { Menu } from "lucide-react";
+import { ThemeToggle } from "../shared/ThemeToggle";
 
 interface NavbarProps {
   onMenuClick: () => void;
@@ -25,6 +26,7 @@ export default function Navbar({ onMenuClick }: NavbarProps) {
             Mantén Coche
           </h1>
         </div>
+        <ThemeToggle />
 
         {/* Spacer for mobile to center the title */}
         <div className="lg:hidden w-10" />

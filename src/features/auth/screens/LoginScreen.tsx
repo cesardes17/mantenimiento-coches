@@ -28,7 +28,7 @@ export default function LoginScreen() {
       <div className="absolute top-4 right-4 ">
         <ThemeToggle />
       </div>
-      <Card className="w-full max-w-md bg-white-50 dark:bg-gray-900">
+      <Card className="w-full max-w-md bg-gray-100 dark:bg-gray-900">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">
             Iniciar sesión

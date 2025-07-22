@@ -28,7 +28,7 @@ const initialValues: RegisterFormValues = {
   firstLastName: "",
   secondLastName: "",
   mobilePhone: "",
-  landlinePhone: null,
+  landlinePhone: "",
   password: "",
   confirmPassword: "",
 };
@@ -43,7 +43,7 @@ export default function RegisterScreen() {
       <div className="absolute top-4 right-4">
         <ThemeToggle />
       </div>
-      <Card className="w-full max-w-2xl bg-white dark:bg-gray-800">
+      <Card className="w-full max-w-2xl bg-gray-100 dark:bg-gray-900">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">
             Crea Tu Cuenta
@@ -72,7 +72,7 @@ export default function RegisterScreen() {
                 label="Correo Electrónico"
                 type="email"
                 icon={<Mail className="h-4 w-4 text-gray-400" />}
-                placeholder="tu@ejemplo.com"
+                placeholder="correo@ejemplo.com"
                 required
               />
 
