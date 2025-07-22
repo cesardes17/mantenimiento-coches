@@ -20,7 +20,7 @@ import { RegisterFormValues } from "../auth.types";
 import FormikInput from "@/components/formik/FormikInput";
 import { useRouter } from "next/navigation";
 import useRegister from "../hooks/useRegister";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 const initialValues: RegisterFormValues = {
   email: "",

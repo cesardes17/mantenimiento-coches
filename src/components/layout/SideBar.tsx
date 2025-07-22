@@ -1,6 +1,5 @@
 "use client";
 
-import { AuthService } from "@/lib/services/core/authService";
 import { Home, Car, User, LogOut } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
@@ -49,10 +48,10 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
           <button
             onClick={async () => {
               // Handle logout logic here
-              const res = await AuthService.logout();
-              if (res.ok) {
-                router.push("/login");
-              }
+              // const res = await AuthService.logout();
+              // if (res.ok) {
+              //   router.push("/login");
+              // }
             }}
             className="flex items-center w-full px-4 py-3 text-gray-700 dark:text-gray-200 rounded-lg hover:bg-red-50 dark:hover:bg-red-900/20 hover:text-red-600 dark:hover:text-red-400 transition-colors duration-200 group"
           >

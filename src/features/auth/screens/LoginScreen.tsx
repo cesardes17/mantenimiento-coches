@@ -17,7 +17,7 @@ import { Alert, AlertDescription } from "@/components/ui/alert";
 import FormikInput from "@/components/formik/FormikInput";
 import { loginSchema } from "../validations";
 import useLogin from "../hooks/useLogin";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 export default function LoginScreen() {
   const router = useRouter();
@@ -25,10 +25,10 @@ export default function LoginScreen() {
 
   return (
     <>
-      <div className="absolute top-4 right-4">
+      <div className="absolute top-4 right-4 ">
         <ThemeToggle />
       </div>
-      <Card className="w-full max-w-md bg-white dark:bg-gray-800">
+      <Card className="w-full max-w-md bg-white-50 dark:bg-gray-900">
         <CardHeader className="space-y-1">
           <CardTitle className="text-2xl font-bold text-center">
             Iniciar sesión

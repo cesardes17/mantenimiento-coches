@@ -1,5 +1,5 @@
 import MainLayout from "@/components/layout/MainLayout";
-import { ThemeToggle } from "@/components/ThemeToggle";
+import { ThemeToggle } from "@/components/shared/ThemeToggle";
 
 export default function Home() {
   return (
