@@ -11,9 +11,8 @@ interface SidebarProps {
 }
 
 const navigationItems = [
-  { name: "Inicio", href: "/", icon: Home },
-  { name: "Mis Coches", href: "/cars", icon: Car },
-  { name: "Perfil", href: "/profile", icon: User },
+  { name: "Mis Coches", href: "/misCoches", icon: Car },
+  { name: "Perfil", href: "/perfil", icon: User },
 ];
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
