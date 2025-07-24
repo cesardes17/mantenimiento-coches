@@ -1,7 +1,8 @@
 "use client";
 
+import { useAuth } from "@/context/AuthContext";
 import { authService } from "@/services/authService";
-import { Home, Car, User, LogOut } from "lucide-react";
+import { Car, User, LogOut, KeyRound } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -9,13 +10,16 @@ interface SidebarProps {
   isOpen: boolean;
   onClose: () => void;
 }
-
+//rol 1 es usuario y rol 2 es administrador
 const navigationItems = [
-  { name: "Mis Coches", href: "/misCoches", icon: Car },
-  { name: "Perfil", href: "/perfil", icon: User },
+  { name: "Mis Coches", href: "/misCoches", icon: Car, roles: [1, 2] },
+  { name: "Perfil", href: "/perfil", icon: User, roles: [1, 2] },
+  { name: "Administrar Roles", href: "/roles", icon: KeyRound, roles: [2] },
 ];
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
+  const { user, loading } = useAuth();
+  console.log("user", user);
   const router = useRouter();
   return (
     <aside
@@ -27,6 +31,11 @@ export default function Sidebar({ isOpen, onClose }: SidebarProps) {
         {/* Top section with navigation links */}
         <nav className="flex-1 px-4 py-6 space-y-2">
           {navigationItems.map((item) => {
+            // Check if the user has the required role to see this item
+            if (!user || !item.roles.includes(user.rol_global_id)) {
+              return null;
+            }
+
             const Icon = item.icon;
             return (
               <Link
