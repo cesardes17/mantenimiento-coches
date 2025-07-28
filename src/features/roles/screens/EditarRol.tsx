@@ -1,5 +1,3 @@
-import { useParams } from "next/navigation";
-
 import { Rol } from "@/types/rol";
 import useObtenerRol from "../hooks/useObtenerRol";
 import useActualizarRol from "../hooks/useActualizarRol";
