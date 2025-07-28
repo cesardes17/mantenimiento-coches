@@ -6,7 +6,7 @@ import { useMemo, useState } from "react";
 
 import { Rol } from "@/types/rol";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Plus, Search, Table as TableIcon } from "lucide-react";
+import { Plus, Search } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
 import {
@@ -64,6 +64,7 @@ export default function RolesScreen() {
   const handleEditRole = (role: Rol) => {
     // TODO: Implement role editing
     console.log("Editar rol:", role);
+    router.push(`/roles/editar/${role.id}`);
   };
 
   const handleDeleteRole = (role: Rol) => {
@@ -86,73 +87,75 @@ export default function RolesScreen() {
 
   return (
     <ContentLayout>
-      {/* Header Section */}
-      <Card className=" bg-gray-50 dark:bg-gray-900">
-        <CardHeader>
-          <CardTitle>Gestión de Roles</CardTitle>
-        </CardHeader>
-        <CardContent>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-            {/* Search Input */}
-            <div className="relative flex-1 max-w-sm">
-              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-              <Input
-                placeholder="Buscar rol..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="pl-9"
-              />
+      <div className="w-full">
+        {/* Header Section */}
+        <Card className=" bg-gray-50 dark:bg-gray-900 ">
+          <CardHeader>
+            <CardTitle>Gestión de Roles</CardTitle>
+          </CardHeader>
+          <CardContent>
+            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+              {/* Search Input */}
+              <div className="relative flex-1 max-w-sm">
+                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+                <Input
+                  placeholder="Buscar rol..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="pl-9"
+                />
+              </div>
+
+              {/* New Role Button */}
+              <Button onClick={handleNewRole} className="w-full sm:w-auto">
+                <Plus className="mr-2 h-4 w-4" />
+                Nuevo rol
+              </Button>
             </div>
+          </CardContent>
+        </Card>
 
-            {/* New Role Button */}
-            <Button onClick={handleNewRole} className="w-full sm:w-auto">
-              <Plus className="mr-2 h-4 w-4" />
-              Nuevo rol
-            </Button>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Table Section */}
-      <Card className="bg-gray-50 dark:bg-gray-900">
-        <CardContent className="p-0">
-          <div className="overflow-x-auto">
-            <Table>
-              <TableHeader>
-                <TableRow>
-                  <TableHead className="w-20">ID</TableHead>
-                  <TableHead>Nombre</TableHead>
-                  <TableHead>Descripción</TableHead>
-                  <TableHead className="w-24">Acciones</TableHead>
-                </TableRow>
-              </TableHeader>
-              <TableBody>
-                {filteredRoles.length > 0 ? (
-                  filteredRoles.map((role: Rol) => (
-                    <RoleTableRow
-                      key={role.id}
-                      role={role}
-                      onEdit={handleEditRole}
-                      onDelete={handleDeleteRole}
-                    />
-                  ))
-                ) : (
+        {/* Table Section */}
+        <Card className="bg-gray-50 dark:bg-gray-900 px-2">
+          <CardContent className="p-0">
+            <div className="overflow-x-auto">
+              <Table>
+                <TableHeader>
                   <TableRow>
-                    <TableCell
-                      colSpan={4}
-                      className="text-center py-8 text-muted-foreground"
-                    >
-                      {searchTerm
-                        ? "No se encontraron roles"
-                        : "No hay roles disponibles"}
-                    </TableCell>
+                    <TableHead className="w-20">ID</TableHead>
+                    <TableHead>Nombre</TableHead>
+                    <TableHead>Descripción</TableHead>
+                    <TableHead className="w-24">Acciones</TableHead>
                   </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </div>
-        </CardContent>
-      </Card>
+                </TableHeader>
+                <TableBody>
+                  {filteredRoles.length > 0 ? (
+                    filteredRoles.map((role: Rol) => (
+                      <RoleTableRow
+                        key={role.id}
+                        role={role}
+                        onEdit={handleEditRole}
+                        onDelete={handleDeleteRole}
+                      />
+                    ))
+                  ) : (
+                    <TableRow>
+                      <TableCell
+                        colSpan={4}
+                        className="text-center py-8 text-muted-foreground"
+                      >
+                        {searchTerm
+                          ? "No se encontraron roles"
+                          : "No hay roles disponibles"}
+                      </TableCell>
+                    </TableRow>
+                  )}
+                </TableBody>
+              </Table>
+            </div>
+          </CardContent>
+        </Card>
+      </div>
 
       {/* Delete Confirmation Modal */}
       <ConfirmationModal
