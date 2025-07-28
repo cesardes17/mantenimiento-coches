@@ -18,12 +18,12 @@ const navigationItems = [
 ];
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
-  const { user, loading } = useAuth();
+  const { user } = useAuth();
   console.log("user", user);
   const router = useRouter();
   return (
     <aside
-      className={`fixed top-16 left-0 z-20 w-64 h-[calc(100vh-4rem)] bg-white dark:bg-gray-800 border-r border-gray-200 dark:border-gray-700 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
+      className={`fixed top-16 left-0 z-20 w-64 h-[calc(100vh-4rem)] bg-gray-50 dark:bg-gray-900 border-r border-gray-200 dark:border-gray-700 transform transition-transform duration-300 ease-in-out lg:translate-x-0 ${
         isOpen ? "translate-x-0" : "-translate-x-full"
       }`}
     >

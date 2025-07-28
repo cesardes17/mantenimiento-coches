@@ -31,9 +31,28 @@ export default function useRoles() {
     fetchRoles();
   }, []);
 
-  //   const deleteRol = async () =>{
+  const deleteRol = async (rolId: number) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const response = await rolesService.delete(rolId);
 
-  //   }
+      if (!response.ok) {
+        throw new Error(response.error || "Falló al eliminar el rol");
+      }
 
-  return { roles, error, loading };
+      setRoles((prevRoles) => prevRoles.filter((rol) => rol.id !== rolId));
+
+      return true;
+    } catch (err) {
+      setError(
+        err instanceof Error
+          ? err.message
+          : "Un error inesperado ocurrió al eliminar el rol"
+      );
+    } finally {
+      setLoading(false);
+    }
+  };
+  return { roles, error, loading, deleteRol };
 }

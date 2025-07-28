@@ -21,12 +21,14 @@ import { RoleTableRow } from "../components/role-table-row";
 import { ConfirmationModal } from "@/components/shared/delete-confirmation-modal";
 
 import useRoles from "../hooks/useRoles";
+import Loading from "@/components/shared/Loading";
+import ContentLayout from "@/components/layout/ContentLayout";
 
 export default function RolesScreen() {
   const { user } = useAuth();
   const router = useRouter();
 
-  const { roles, loading, error } = useRoles();
+  const { roles, loading, error, deleteRol } = useRoles();
 
   const [searchTerm, setSearchTerm] = useState("");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
@@ -46,7 +48,7 @@ export default function RolesScreen() {
   }, [roles, searchTerm]);
 
   if (loading) {
-    return <div>Loading...</div>;
+    return <Loading loading={loading} />;
   }
 
   if (!user || user.rol_global_id !== 2) {
@@ -69,8 +71,11 @@ export default function RolesScreen() {
     setIsDeleteModalOpen(true);
   };
 
-  const confirmDelete = () => {
-    console.log("Eliminando el rol...: ", roleToDelete);
+  const confirmDelete = async () => {
+    if (!roleToDelete) return;
+    await deleteRol(roleToDelete.id);
+    setRoleToDelete(null);
+
     setIsDeleteModalOpen(false);
   };
 
@@ -80,88 +85,86 @@ export default function RolesScreen() {
   };
 
   return (
-    <div className="min-h-screen p-4 md:p-6 lg:p-8 bg-gray-100 dark:bg-gray-800">
-      <div className="mx-auto max-w-7xl space-y-6">
-        {/* Header Section */}
-        <Card className=" bg-gray-50 dark:bg-gray-900">
-          <CardHeader>
-            <CardTitle>Gestión de Roles</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              {/* Search Input */}
-              <div className="relative flex-1 max-w-sm">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  placeholder="Buscar rol..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-9"
-                />
-              </div>
-
-              {/* New Role Button */}
-              <Button onClick={handleNewRole} className="w-full sm:w-auto">
-                <Plus className="mr-2 h-4 w-4" />
-                Nuevo rol
-              </Button>
+    <ContentLayout>
+      {/* Header Section */}
+      <Card className=" bg-gray-50 dark:bg-gray-900">
+        <CardHeader>
+          <CardTitle>Gestión de Roles</CardTitle>
+        </CardHeader>
+        <CardContent>
+          <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+            {/* Search Input */}
+            <div className="relative flex-1 max-w-sm">
+              <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
+              <Input
+                placeholder="Buscar rol..."
+                value={searchTerm}
+                onChange={(e) => setSearchTerm(e.target.value)}
+                className="pl-9"
+              />
             </div>
-          </CardContent>
-        </Card>
 
-        {/* Table Section */}
-        <Card className="bg-gray-50 dark:bg-gray-900">
-          <CardContent className="p-0">
-            <div className="overflow-x-auto">
-              <Table>
-                <TableHeader>
+            {/* New Role Button */}
+            <Button onClick={handleNewRole} className="w-full sm:w-auto">
+              <Plus className="mr-2 h-4 w-4" />
+              Nuevo rol
+            </Button>
+          </div>
+        </CardContent>
+      </Card>
+
+      {/* Table Section */}
+      <Card className="bg-gray-50 dark:bg-gray-900">
+        <CardContent className="p-0">
+          <div className="overflow-x-auto">
+            <Table>
+              <TableHeader>
+                <TableRow>
+                  <TableHead className="w-20">ID</TableHead>
+                  <TableHead>Nombre</TableHead>
+                  <TableHead>Descripción</TableHead>
+                  <TableHead className="w-24">Acciones</TableHead>
+                </TableRow>
+              </TableHeader>
+              <TableBody>
+                {filteredRoles.length > 0 ? (
+                  filteredRoles.map((role: Rol) => (
+                    <RoleTableRow
+                      key={role.id}
+                      role={role}
+                      onEdit={handleEditRole}
+                      onDelete={handleDeleteRole}
+                    />
+                  ))
+                ) : (
                   <TableRow>
-                    <TableHead className="w-20">ID</TableHead>
-                    <TableHead>Nombre</TableHead>
-                    <TableHead>Descripción</TableHead>
-                    <TableHead className="w-24">Acciones</TableHead>
+                    <TableCell
+                      colSpan={4}
+                      className="text-center py-8 text-muted-foreground"
+                    >
+                      {searchTerm
+                        ? "No se encontraron roles"
+                        : "No hay roles disponibles"}
+                    </TableCell>
                   </TableRow>
-                </TableHeader>
-                <TableBody>
-                  {filteredRoles.length > 0 ? (
-                    filteredRoles.map((role: Rol) => (
-                      <RoleTableRow
-                        key={role.id}
-                        role={role}
-                        onEdit={handleEditRole}
-                        onDelete={handleDeleteRole}
-                      />
-                    ))
-                  ) : (
-                    <TableRow>
-                      <TableCell
-                        colSpan={4}
-                        className="text-center py-8 text-muted-foreground"
-                      >
-                        {searchTerm
-                          ? "No se encontraron roles"
-                          : "No hay roles disponibles"}
-                      </TableCell>
-                    </TableRow>
-                  )}
-                </TableBody>
-              </Table>
-            </div>
-          </CardContent>
-        </Card>
+                )}
+              </TableBody>
+            </Table>
+          </div>
+        </CardContent>
+      </Card>
 
-        {/* Delete Confirmation Modal */}
-        <ConfirmationModal
-          isOpen={isDeleteModalOpen}
-          onClose={cancelDelete}
-          onConfirm={confirmDelete}
-          title="Confirmar eliminación"
-          description={`¿Estás seguro de que quieres eliminar el rol "${roleToDelete?.nombre}"? Esta acción no se puede deshacer.`}
-          confirmText="Eliminar"
-          cancelText="Cancelar"
-          variant="destructive"
-        />
-      </div>
-    </div>
+      {/* Delete Confirmation Modal */}
+      <ConfirmationModal
+        isOpen={isDeleteModalOpen}
+        onClose={cancelDelete}
+        onConfirm={confirmDelete}
+        title="Confirmar eliminación"
+        description={`¿Estás seguro de que quieres eliminar el rol "${roleToDelete?.nombre}"? Esta acción no se puede deshacer.`}
+        confirmText="Eliminar"
+        cancelText="Cancelar"
+        variant="destructive"
+      />
+    </ContentLayout>
   );
 }

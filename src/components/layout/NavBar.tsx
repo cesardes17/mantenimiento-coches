@@ -9,7 +9,7 @@ interface NavbarProps {
 
 export default function Navbar({ onMenuClick }: NavbarProps) {
   return (
-    <nav className="fixed top-0 left-0 right-0 z-30 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 h-16">
+    <nav className="fixed top-0 left-0 right-0 z-30 bg-gray-50 dark:bg-gray-900 border-b border-gray-200 dark:border-gray-700 h-16">
       <div className="flex items-center justify-between h-full px-4">
         {/* Hamburger menu - only visible on mobile */}
         <button
