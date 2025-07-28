@@ -2,7 +2,7 @@
 
 import { useAuth } from "@/context/AuthContext";
 import { authService } from "@/services/authService";
-import { Car, User, LogOut, KeyRound } from "lucide-react";
+import { Car, User, LogOut, KeyRound, Fuel } from "lucide-react";
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 
@@ -15,6 +15,12 @@ const navigationItems = [
   { name: "Mis Coches", href: "/misCoches", icon: Car, roles: [1, 2] },
   { name: "Perfil", href: "/perfil", icon: User, roles: [1, 2] },
   { name: "Administrar Roles", href: "/roles", icon: KeyRound, roles: [2] },
+  {
+    name: "Administrar Combustibles",
+    href: "/combustibles",
+    icon: Fuel,
+    roles: [2],
+  },
 ];
 
 export default function Sidebar({ isOpen, onClose }: SidebarProps) {
