@@ -19,6 +19,7 @@ import { Combustible } from "@/types/combustible";
 import { ConfirmationModal } from "@/components/shared/delete-confirmation-modal";
 import ContentLayout from "@/components/layout/ContentLayout";
 import { useRouter } from "next/navigation";
+import SearchHeader from "@/components/shared/SearchHeader";
 
 export default function CombustiblesScreen() {
   const [searchTerm, setSearchTerm] = useState<string>("");
@@ -64,34 +65,15 @@ export default function CombustiblesScreen() {
   return (
     <ContentLayout>
       <div className="w-full gap-4">
-        <Card className=" bg-gray-50 dark:bg-gray-900 ">
-          <CardHeader>
-            <CardTitle>Gestión de Combustibles</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              {/* Search Input */}
-              <div className="relative flex-1 max-w-sm">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  placeholder="Buscar combustible..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-9"
-                />
-              </div>
-
-              {/* New Combustible Button */}
-              <Button
-                onClick={handleNewCombustible}
-                className="w-full sm:w-auto"
-              >
-                <Plus className="mr-2 h-4 w-4" />
-                Nuevo combustible
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        {/* Header Section */}
+        <SearchHeader
+          title="Gestión de Combustibles"
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          placeholder="Buscar combustible..."
+          buttonText="Nuevo combustible"
+          onButtonClick={handleNewCombustible}
+        />
         {/* Table Section */}
         <Card className="bg-gray-50 dark:bg-gray-900 px-2">
           <CardContent className="p-0">

@@ -23,6 +23,7 @@ import { ConfirmationModal } from "@/components/shared/delete-confirmation-modal
 import useRoles from "../hooks/useRoles";
 import Loading from "@/components/shared/Loading";
 import ContentLayout from "@/components/layout/ContentLayout";
+import SearchHeader from "@/components/shared/SearchHeader";
 
 export default function RolesScreen() {
   const { user } = useAuth();
@@ -89,31 +90,14 @@ export default function RolesScreen() {
     <ContentLayout>
       <div className="w-full">
         {/* Header Section */}
-        <Card className=" bg-gray-50 dark:bg-gray-900 ">
-          <CardHeader>
-            <CardTitle>Gestión de Roles</CardTitle>
-          </CardHeader>
-          <CardContent>
-            <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
-              {/* Search Input */}
-              <div className="relative flex-1 max-w-sm">
-                <Search className="absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
-                <Input
-                  placeholder="Buscar rol..."
-                  value={searchTerm}
-                  onChange={(e) => setSearchTerm(e.target.value)}
-                  className="pl-9"
-                />
-              </div>
-
-              {/* New Role Button */}
-              <Button onClick={handleNewRole} className="w-full sm:w-auto">
-                <Plus className="mr-2 h-4 w-4" />
-                Nuevo rol
-              </Button>
-            </div>
-          </CardContent>
-        </Card>
+        <SearchHeader
+          title="Gestión de Roles"
+          searchTerm={searchTerm}
+          onSearchChange={setSearchTerm}
+          placeholder="Buscar rol..."
+          buttonText="Nuevo rol"
+          onButtonClick={handleNewRole}
+        />
 
         {/* Table Section */}
         <Card className="bg-gray-50 dark:bg-gray-900 px-2">
