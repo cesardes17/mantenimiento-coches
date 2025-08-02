@@ -5,11 +5,13 @@ import useCoches from "../hooks/useCoches";
 import SearchHeader from "@/components/shared/SearchHeader";
 import { useMemo, useState } from "react";
 import CarCardList from "../components/CarCardList";
+import { useRouter } from "next/navigation";
 
 export default function MisCochesScreen() {
   const { coches, error, loadingCoches } = useCoches();
   const [searchTerm, setSearchTerm] = useState("");
 
+  const router = useRouter();
   // Filter coches based on search term
   const filteredCoches = useMemo(() => {
     if (!searchTerm) return coches;
@@ -24,6 +26,7 @@ export default function MisCochesScreen() {
 
   const handleNewCoche = () => {
     console.log("Crear nuevo coche");
+    router.push("/misCoches/nuevo");
   };
 
   return (
